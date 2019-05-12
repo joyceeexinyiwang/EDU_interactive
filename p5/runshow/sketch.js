@@ -4,12 +4,22 @@ let poses = [];
 let skeletons = [];
 let color1;
 let color2;
+let audio_n;
+let audios = [];
+let audios_pos = [];
+let playing;
 
 //https://github.com/tensorflow/tfjs/issues/534
 
 function preload() {
   eye = loadImage('assets/eye.png');
   house = loadImage('assets/house_2.png');
+  audio_n = 6;
+  for (var i = 0; i < audio_n; i++) {
+    var filename = "Part" + str(i)+".mp3";
+    a = loadSound('assets/audio/'+filename);
+    audios.push(a);
+  }
 }
 
 function setup() {
@@ -33,7 +43,19 @@ function setup() {
 
   color1 = color(255, 200);
   color2 = color(255, 150);
-  
+  color_audio = color(255, 200);
+
+  for (var i = 0; i < audio_n; i++) {
+    a_pos = {};
+    a_pos.x = (width*3/5)*i/audio_n + width*1/5 * (1+0.5/audio_n);
+    a_pos.y = random(height/4, height*3/4);
+    audios_pos.push(a_pos);
+  }
+
+  print(audios_pos);
+
+  playing = -1;
+
 }
 
 function windowResized() {
@@ -52,9 +74,21 @@ function draw() {
   image(house, width/2, height/2, width, width * house.height/house.width);
   // We can call both functions to draw all keypoints and the skeletons
   drawKeypoints();
+  drawAudios();
   drawSkeleton();
-  
-  // save();
+}
+
+function drawAudios() {
+  for (var i = 0; i < audio_n; i++) {
+    var a_pos = audios_pos[i];
+    var s = 30;
+    if (i == playing) {
+      s = 60;
+    }
+    fill(color_audio);
+    noStroke();
+    ellipse(a_pos.x, a_pos.y, s, s);
+  }
 }
 
 // A function to draw ellipses over the detected keypoints
@@ -106,10 +140,16 @@ function drawKeypoints()  {
       // Only draw an ellipse is the pose probability is bigger than 0.2
       if (keypoint.score > 0.2) {
         // text(keypoint.part, keypoint.position.x, keypoint.position.y);
-        ellipse(keypoint.position.x, keypoint.position.y, 5,5);
-  			appearance[keypoint.part] = true;
-        positions[keypoint.part].x= keypoint.position.x;
-        positions[keypoint.part].y = keypoint.position.y;
+        if (keypoint.part == "leftEar" || keypoint.part == "rightEar") {
+          // don't draw the ears
+        } else {
+          stroke(color2);
+          fill(color1);
+          ellipse(keypoint.position.x, keypoint.position.y, 5,5);
+    			appearance[keypoint.part] = true;
+          positions[keypoint.part].x= keypoint.position.x;
+          positions[keypoint.part].y = keypoint.position.y;
+        }
       }
     }
   }
@@ -121,14 +161,17 @@ function drawKeypoints()  {
 
     // fill(color1, 200);
     // ellipse(headx, heady, headwidth, headwidth * 1.2);
+    checkHead(headx, heady);
     
-    fill(color2);
+    stroke(color2);
+    fill(color1);
     var eyesize = headwidth/4;
     image(eye, positions.leftEye.x, positions.leftEye.y, eyesize, eyesize*eye.height/eye.width);
     image(eye, positions.rightEye.x, positions.rightEye.y, eyesize, eyesize*eye.height/eye.width);
   }
   
   if (appearance.rightHip && appearance.leftHip && appearance.leftShoulder && appearance.rightShoulder) {
+    stroke(color2);
     fill(color1);
     beginShape();
     vertex(positions.leftHip.x, positions.leftHip.y);
@@ -139,7 +182,6 @@ function drawKeypoints()  {
   }
   
   if (appearance.leftShoulder && appearance.leftElbow && appearance.leftHip) {
-    print("hoo");
     stroke(color2);
     curve(positions.leftHip.x, positions.leftHip.y, positions.leftElbow.x, positions.leftElbow.y, positions.leftShoulder.x, positions.leftShoulder.y);
   }
@@ -155,13 +197,27 @@ function drawSkeleton() {
       let partA = poses[i].skeleton[j][0];
       let partB = poses[i].skeleton[j][1];
       stroke(color2);
-      var scale = 15;
-      var repeats = 5;
       line(partA.position.x, partA.position.y, partB.position.x, partB.position.y);
     }
   }
 }
 
-function mouseClicked(){
-  save('myCanvas.png');
+function checkHead(headx, heady) {
+  for (var i = 0; i < audio_n; i++) {
+    var a_pos = audios_pos[i];
+    var dis = sqrt((headx-a_pos.x)*(headx-a_pos.x) + (heady-a_pos.y)*(heady-a_pos.y));
+    if (dis < 30) {
+      if (playing != i) {
+        if (playing != -1) {
+          audios[playing].stop();
+        } 
+        playing = i;
+        audios[playing].play();
+      }
+    }
+  }
 }
+
+// function mouseClicked(){
+//   save('myCanvas.png');
+// }
