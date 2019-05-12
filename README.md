@@ -1,6 +1,6 @@
-# EDU project
+# interactive part of EDU project
 
-by joyce wang
+in process by joyce wang and NaTasha Thompson
 
 ## set up
 - install [python 3](https://www.python.org/downloads/release/python-373/)
