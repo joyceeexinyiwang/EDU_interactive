@@ -8,18 +8,13 @@ in process by joyce wang and NaTasha Thompson
 
 ## how to use it
 - download this github package
-- go to top folder and then run `browser-sync start --server --directory --files "*"`
-- open html file `./p5/runshow/index.html` in the browser
+- in command line, go to top folder and then run `browser-sync start --server --directory --files "*"`
+- in the browser, open html file `./p5/runshow/index.html`
 - allow browser to access camera
 - play! (use your nose to activate audio files)
 
 ## note!
 - works better when there is only one person in front the camera
-
-## set up
-go to top folder and then:  
-`npm install -g browser-sync`  
-`browser-sync start --server --directory --files "*"`
 
 ## sources
 - https://p5js.org/
