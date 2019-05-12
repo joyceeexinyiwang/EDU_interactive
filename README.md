@@ -2,24 +2,24 @@
 
 by joyce wang
 
-## sources
-- https://p5js.org/
-- 
+## set up
+- install [python 3](https://www.python.org/downloads/release/python-373/)
+- install browser-sync: `npm install -g browser-sync`  
 
 ## how to use it
-- download it
-- run server `http blah blah blah`
-- open html file `./p5/runshow/index.html`
-- play!
+- download this github package
+- go to top folder and then run `browser-sync start --server --directory --files "*"`
+- open html file `./p5/runshow/index.html` in the browser
+- allow browser to access camera
+- play! (use your nose to activate audio files)
 
 ## note!
-- works better when there are very few people in front the camera
+- works better when there is only one person in front the camera
 
-## instruction vid
-???
-
-## tips for joyce when developing
-
+## set up
 go to top folder and then:  
 `npm install -g browser-sync`  
 `browser-sync start --server --directory --files "*"`
+
+## sources
+- https://p5js.org/
