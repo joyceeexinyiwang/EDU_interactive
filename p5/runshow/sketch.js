@@ -9,6 +9,7 @@ let color2;
 
 function preload() {
   eye = loadImage('assets/eye.png');
+  house = loadImage('assets/house_2.png');
 }
 
 function setup() {
@@ -29,9 +30,10 @@ function setup() {
   
   ellipseMode(CENTER);
   imageMode(CENTER);
+
+  color1 = color(255, 200);
+  color2 = color(255, 150);
   
-  color1 = color(255);
-  color2 = color(255);
 }
 
 function windowResized() {
@@ -44,14 +46,13 @@ function modelReady() {
 
 function draw() {
   background(251);
-  image(video, width/2, height/2, width, height);
-
+  translate(width,0); // move to far corner
+  scale(-1.0,1.0);    // flip x-axis backwards
+  image(video, width/2, height/2, width, width * 240/320);
+  image(house, width/2, height/2, width, width * house.height/house.width);
   // We can call both functions to draw all keypoints and the skeletons
   drawKeypoints();
   drawSkeleton();
-  
-  color1 = color(random(100, 255), random(100, 255), random(100, 255), random(100, 150));
-  color2 = color(random(100, 255), random(100, 255), random(100, 255), random(200, 255));
   
   // save();
 }
@@ -63,8 +64,6 @@ function drawKeypoints()  {
   appearance.leftEye = false;
   appearance.rightEye = false;
   appearance.nose= false;
-  appearance.leftEye= false;
-  appearance.rightEye= false;
   appearance.leftEar= false;
   appearance.rightEar= false;
   appearance.leftShoulder= false;
@@ -83,8 +82,6 @@ function drawKeypoints()  {
   positions.leftEye = {};
   positions.rightEye = {};
   positions.nose= {};
-  positions.leftEye= {};
-  positions.rightEye= {};
   positions.leftEar= {};
   positions.rightEar= {};
   positions.leftShoulder= {};
@@ -108,26 +105,24 @@ function drawKeypoints()  {
       let keypoint = poses[i].pose.keypoints[j];
       // Only draw an ellipse is the pose probability is bigger than 0.2
       if (keypoint.score > 0.2) {
-        fill(0);
         // text(keypoint.part, keypoint.position.x, keypoint.position.y);
+        ellipse(keypoint.position.x, keypoint.position.y, 5,5);
   			appearance[keypoint.part] = true;
         positions[keypoint.part].x= keypoint.position.x;
         positions[keypoint.part].y = keypoint.position.y;
-
       }
     }
   }
   
-  noStroke();
   if (appearance.rightEye && appearance.leftEye) {    
     var headwidth = (positions.rightEye.x - positions.leftEye.x) * 2.5;
     headx = (positions.leftEye.x + positions.rightEye.x)/2;
     heady = (positions.rightEye.y + positions.leftEye.y)/2 - headwidth/7;
 
-    fill(color1, 200);
-    ellipse(headx, heady, headwidth, headwidth * 1.2);
+    // fill(color1, 200);
+    // ellipse(headx, heady, headwidth, headwidth * 1.2);
     
-    fill(0);
+    fill(color2);
     var eyesize = headwidth/4;
     image(eye, positions.leftEye.x, positions.leftEye.y, eyesize, eyesize*eye.height/eye.width);
     image(eye, positions.rightEye.x, positions.rightEye.y, eyesize, eyesize*eye.height/eye.width);
@@ -146,15 +141,13 @@ function drawKeypoints()  {
   if (appearance.leftShoulder && appearance.leftElbow && appearance.leftHip) {
     print("hoo");
     stroke(color2);
-    strokeWeight(5);
     curve(positions.leftHip.x, positions.leftHip.y, positions.leftElbow.x, positions.leftElbow.y, positions.leftShoulder.x, positions.leftShoulder.y);
   }
-  
-  
 }
 
 // A function to draw the skeletons
 function drawSkeleton() {
+  strokeWeight(5);
   // Loop through all the skeletons detected
   for (let i = 0; i < poses.length; i++) {
     // For every skeleton, loop through all body connections
@@ -165,10 +158,6 @@ function drawSkeleton() {
       var scale = 15;
       var repeats = 5;
       line(partA.position.x, partA.position.y, partB.position.x, partB.position.y);
-			for (let k = 0; k < repeats; k++) {
-			line(partA.position.x-randomGaussian(0, scale), partA.position.y-randomGaussian(0, scale), partB.position.x-randomGaussian(0, scale), partB.position.y-randomGaussian(0, scale));
-			line(partA.position.x-randomGaussian(0, scale), partA.position.y+randomGaussian(0, scale), partB.position.x+randomGaussian(0, scale), partB.position.y+randomGaussian(0, scale));
-			}
     }
   }
 }
