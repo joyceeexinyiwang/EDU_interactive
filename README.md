@@ -5,7 +5,11 @@ in progress by joyce wang and NaTasha Thompson
 ## How to use it
 - (If there is an update) download this github package
 - Save to the desired folder (e.g. Desktop) and extract folder
-- In command prompt, navigate to the folder that was just downloaded (something like `Desktop/EDU_interactive-master/EDU_interactive-master/`)
+- In command prompt, navigate to the folder that was just downloaded
+  - To move to a sub folder, enter `cd FolderName`
+  - To see what's in the current folder, enter `dir`
+  - To go up to a folder, enter `cd ..`
+  - Eventually, the path of the folder will look something like `Desktop/EDU_interactive-master/EDU_interactive-master/`)
 - In command prompt, enter `browser-sync start --server --directory --files "*"`
 - A browser (Chrome) will be automatically opened. Navigate to open the html file `./p5/runshow/index.html`
 - Allow browser to access camera and turn audio on
