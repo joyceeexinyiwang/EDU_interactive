@@ -8,7 +8,7 @@ in progress by joyce wang and NaTasha Thompson
 - In command prompt, navigate to the folder that was just downloaded
   - To move to a sub folder, enter `cd FolderName`
   - To see what's in the current folder, enter `dir`
-  - To go up to a folder, enter `cd ..`
+  - To go up a folder, enter `cd ..`
   - Eventually, the path of the folder will look something like `Desktop/EDU_interactive-master/EDU_interactive-master/`)
 - In command prompt, enter `browser-sync start --server --directory --files "*"`
 - A browser (Chrome) will be automatically opened. Navigate to open the html file `./p5/runshow/index.html`
