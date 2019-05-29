@@ -14,7 +14,7 @@ let playing;
 function preload() {
   eye = loadImage('assets/eye.png');
   house = loadImage('assets/house_2.png');
-  audio_n = 6;
+  audio_n = 3;
   for (var i = 0; i < audio_n; i++) {
     var filename = "Part" + str(i)+".mp3";
     a = loadSound('assets/audio/'+filename);
@@ -159,8 +159,6 @@ function drawKeypoints()  {
     headx = (positions.leftEye.x + positions.rightEye.x)/2;
     heady = (positions.rightEye.y + positions.leftEye.y)/2 - headwidth/7;
 
-    // fill(color1, 200);
-    // ellipse(headx, heady, headwidth, headwidth * 1.2);
     checkHead(headx, heady);
     
     stroke(color2);
@@ -217,7 +215,3 @@ function checkHead(headx, heady) {
     }
   }
 }
-
-// function mouseClicked(){
-//   save('myCanvas.png');
-// }
