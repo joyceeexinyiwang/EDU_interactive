@@ -9,11 +9,9 @@ let audios = [];
 let audios_pos = [];
 let playing;
 
-//https://github.com/tensorflow/tfjs/issues/534
-
 function preload() {
   eye = loadImage('assets/eye.png');
-  house = loadImage('assets/house_2.png');
+  back_img = loadImage('assets/Mallie.png');
   audio_n = 3;
   for (var i = 0; i < audio_n; i++) {
     var filename = "Part" + str(i)+".mp3";
@@ -71,7 +69,7 @@ function draw() {
   translate(width,0); // move to far corner
   scale(-1.0,1.0);    // flip x-axis backwards
   image(video, width/2, height/2, width, width * 240/320);
-  image(house, width/2, height/2, width, width * house.height/house.width);
+  image(back_img, width/2, height/2, width, width * back_img.height/back_img.width);
   // We can call both functions to draw all keypoints and the skeletons
   drawKeypoints();
   drawAudios();
@@ -93,6 +91,9 @@ function drawAudios() {
 
 // A function to draw ellipses over the detected keypoints
 function drawKeypoints()  {
+
+  //Posenet results: https://github.com/tensorflow/tfjs/issues/534
+
   var appearance = {};
   var positions = {};
   appearance.leftEye = false;
@@ -200,6 +201,7 @@ function drawSkeleton() {
   }
 }
 
+// A function to draw the nose
 function checkHead(headx, heady) {
   for (var i = 0; i < audio_n; i++) {
     var a_pos = audios_pos[i];
