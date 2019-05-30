@@ -64,7 +64,7 @@ The function `drawKeypoints()` starting on line 93 process the skeleton data to 
 If you want to get into the technical details of PoseNet's algorithms, check out this [Medium article](https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5) written by [Dan Oved](https://www.danioved.com/), a creative technologist at Google. 
 
 
-### MoCap for story telling
+### MoCap for storytelling
 
 Motion capture can be a really fun tool to tell stories that tradition mediums might not able to. One of Joyce's favorite professors, [Golan Levin](http://www.flong.com/), is a leading expert in interactive media art, and he has compiled a list of really cool motion-capture projects. You can find them [here](http://golancourses.net/2015/lectures/interactivity/full-body-interactive-art/) and [here](https://github.com/golanlevin/lectures/tree/master/lecture_expanded_body). Maybe these can give you a sense of how motion capture can be used to tell interesting stories.
 
