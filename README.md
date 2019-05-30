@@ -31,9 +31,9 @@ In progress by Joyce Wang and NaTasha Thompson
 
 ## How the Code Works Behind the Scene
 
-The two biggest components of the code are 1) **PoseNet** for motion capture, and 2) **p5.js**, as the basis for processing data and generating visuals.
+The two main components of the code are 1) **PoseNet** for motion capture, and 2) **p5.js**, as the basis for processing data and generating visuals.
 
-### PoseNet for motion Capture
+### PoseNet
 This interactive sketch uses **PoseNet** to detect human motions, which are then used to activate audio files.
 
 [PoseNet](https://ml5js.org/docs/PoseNet) is a software tool for motion capture. It is a special version of this other tool called [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose). It analyzes video footage in real-time, and outputs skeleton data when there are human beings in front of the camera. In the gif below, PoseNet is capturing the skeleton of its authors Gines Hidalgo (left) and Hanbyul Joo (right)!
@@ -43,11 +43,11 @@ This interactive sketch uses **PoseNet** to detect human motions, which are then
 We are specifically looking at where the "nose" is. When the nose touches on one of the circles, an audio file gets triggered and starts playing.
 
 
-### Code
+### p5.js
 
-The code in this project uses [p5.js](https://p5js.org/)--a Javascript library--to call PoseNet and generate visuals in the browser.
+[p5.js](https://p5js.org/)--a Javascript library--is used to call PoseNet and generate visuals in the browser.
 
-If you are interested in how the code works, check out [sketch.js](p5/runshow/sketch.js) in the package. It has all the commands that calls PoseNet, controls the interaction, and outputs the visual. 
+If you are interested in looking at the code, check out [sketch.js](p5/runshow/sketch.js) in the package. It has all the commands that calls PoseNet, controls the interaction, and outputs the visual. 
 
 Line 29-35 in the file (shown below) sets up a PoseNet "method," which intermittently gets skeleton data. 
 
