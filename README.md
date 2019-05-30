@@ -31,6 +31,8 @@ In progress by Joyce Wang and NaTasha Thompson
 
 ## How the Code Works Behind the Scene
 
+The two biggest components of the code are 1) **PoseNet** for motion capture, and 2) **p5.js**, as the basis for processing data and generating visuals.
+
 ### PoseNet for motion Capture
 This interactive sketch uses **PoseNet** to detect human motions, which are then used to activate audio files.
 
